@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CareerMatch — Find Your Career</title>
+<style>
+:root{--bg:#f7f5ff;--card:#fff;--text:#222238;--muted:#68687d;--primary:#7c5cff;--primary2:#a68cff;--line:#e9e5f7;--shadow:0 14px 40px rgba(57,38,120,.10)}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:linear-gradient(135deg,#f8f6ff,#fff8fc);color:var(--text)}
+button{font:inherit}.nav{height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 7%;background:rgba(255,255,255,.8);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.logo{font-weight:900;font-size:22px;color:var(--primary);cursor:pointer}.navlinks{display:flex;gap:10px}.navlinks button{border:0;background:none;padding:10px 14px;border-radius:12px;color:var(--muted);cursor:pointer}.navlinks button:hover{background:#f1edff;color:var(--primary)}
+main{max-width:1050px;margin:auto;padding:55px 22px 80px}.hero{text-align:center;padding:55px 10px 35px}.badge{display:inline-block;background:#eee9ff;color:#6748e8;padding:8px 14px;border-radius:999px;font-size:13px;font-weight:700}.hero h1{font-size:clamp(40px,7vw,70px);line-height:1.02;margin:20px auto 18px;max-width:800px;letter-spacing:-2px}.hero p{font-size:18px;color:var(--muted);max-width:650px;margin:0 auto 28px;line-height:1.6}.primary{border:0;background:linear-gradient(135deg,var(--primary),#9a6cff);color:white;padding:14px 23px;border-radius:14px;font-weight:800;cursor:pointer;box-shadow:0 9px 25px rgba(124,92,255,.25)}.primary:hover{transform:translateY(-1px)}.secondary{border:1px solid var(--line);background:white;color:var(--text);padding:13px 20px;border-radius:14px;font-weight:700;cursor:pointer}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:35px}.feature,.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:var(--shadow)}.feature .icon{font-size:28px}.feature h3{margin:12px 0 7px}.feature p{color:var(--muted);line-height:1.5;margin:0}
+.hidden{display:none!important}.section-title{text-align:center;margin-bottom:28px}.section-title h2{font-size:36px;margin:0 0 8px}.section-title p{color:var(--muted)}
+.quiz-wrap{max-width:720px;margin:auto}.progress{height:9px;background:#eae7f5;border-radius:99px;overflow:hidden;margin:10px 0 28px}.bar{height:100%;background:linear-gradient(90deg,var(--primary),#b48aff);transition:.3s}.question-card{background:white;border:1px solid var(--line);border-radius:25px;padding:30px;box-shadow:var(--shadow)}.question-num{color:var(--primary);font-weight:800;font-size:13px}.question-card h2{font-size:28px;margin:9px 0 20px}.options{display:grid;gap:11px}.option{width:100%;text-align:left;padding:16px 17px;background:#faf9fe;border:2px solid #eeeaf8;border-radius:15px;cursor:pointer;transition:.15s}.option:hover{border-color:#b9a9ff;background:#f5f1ff}.option.selected{border-color:var(--primary);background:#eee9ff}.quiz-actions{display:flex;justify-content:space-between;margin-top:20px}
+.result{text-align:center}.result .emoji{font-size:58px}.match{display:inline-block;background:#e9fff3;color:#16824b;padding:7px 13px;border-radius:99px;font-weight:800;margin:8px}.result h1{font-size:45px;margin:8px 0}.result-sub{color:var(--muted);font-size:17px;line-height:1.6}.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:28px;text-align:left}.result-card{background:white;border:1px solid var(--line);border-radius:20px;padding:23px}.result-card h3{margin-top:0}.career-list{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.career-card{background:white;border:1px solid var(--line);border-radius:20px;padding:20px;cursor:pointer;box-shadow:var(--shadow)}.career-card:hover{transform:translateY(-2px);border-color:#c8bcff}.career-card h3{margin:7px 0}.career-card p{color:var(--muted);margin:0;line-height:1.5}.search{width:100%;padding:15px 17px;border:1px solid var(--line);border-radius:14px;margin-bottom:20px;font-size:16px;outline:none}.search:focus{border-color:var(--primary)}.guide-head{display:flex;gap:15px;align-items:center;margin-bottom:25px}.guide-head .bigemoji{font-size:50px}.guide h1{font-size:40px;margin:0}.guide h2{margin-top:27px}.guide ul{padding-left:22px;line-height:1.8}.steps{counter-reset:step;display:grid;gap:12px}.step{display:flex;gap:15px;align-items:flex-start;background:#faf9fe;padding:15px;border-radius:14px}.step:before{counter-increment:step;content:counter(step);background:var(--primary);color:white;min-width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-weight:800}.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{background:#f0edff;color:#5e45cf;border-radius:99px;padding:7px 11px;font-size:13px;font-weight:700}
+@media(max-width:700px){.nav{padding:0 4%}.navlinks button{padding:8px}.features,.result-grid,.career-list{grid-template-columns:1fr}.hero{padding-top:35px}.question-card{padding:22px}.result h1{font-size:35px}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="logo" onclick="showHome()">CareerMatch ✦</div>
+  <div class="navlinks"><button onclick="showHome()">Home</button><button onclick="showQuiz()">Career Quiz</button><button onclick="showCareers()">Career Guide</button></div>
+</nav>
+
+<main>
+<section id="home">
+  <div class="hero">
+    <span class="badge">DISCOVER YOUR PATH ✦</span>
+    <h1>What career fits you?</h1>
+    <p>Answer a few simple questions about your interests, strengths, and the way you like to work. We'll find careers that match you.</p>
+    <button class="primary" onclick="showQuiz()">Take the Quiz →</button>
+  </div>
+  <div class="features">
+    <div class="feature"><div class="icon">🧠</div><h3>Personalized</h3><p>Your answers are used to match you with careers that fit your interests and strengths.</p></div>
+    <div class="feature"><div class="icon">✨</div><h3>Explore careers</h3><p>See your strongest match plus other careers you might enjoy.</p></div>
+    <div class="feature"><div class="icon">📚</div><h3>Learn how</h3><p>Open a career guide to see skills, education, and practical steps to get started.</p></div>
+  </div>
+</section>
+
+<section id="quiz" class="hidden">
+  <div class="section-title"><h2>Career Quiz</h2><p>There are no right or wrong answers — just choose what feels most like you.</p></div>
+  <div class="quiz-wrap">
+    <div class="progress"><div class="bar" id="bar"></div></div>
+    <div class="question-card">
+      <div class="question-num" id="qnum"></div><h2 id="qtext"></h2><div class="options" id="options"></div>
+      <div class="quiz-actions"><button class="secondary" id="backBtn" onclick="prevQuestion()">← Back</button><button class="primary" id="nextBtn" onclick="nextQuestion()">Next →</button></div>
+    </div>
+  </div>
+</section>
+
+<section id="result" class="hidden">
+  <div class="result">
+    <span class="badge">YOUR CAREER MATCH</span>
+    <div class="emoji" id="resultEmoji"></div>
+    <div class="match" id="matchPercent"></div>
+    <h1 id="resultTitle"></h1>
+    <p class="result-sub" id="resultIntro"></p>
+    <div class="result-grid">
+      <div class="result-card"><h3>Why it matches you</h3><ul id="whyList"></ul></div>
+      <div class="result-card"><h3>Other careers to explore</h3><div id="otherJobs"></div></div>
+    </div>
+    <div style="margin-top:25px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+      <button class="primary" id="learnBtn">Learn how to get this job →</button>
+      <button class="secondary" onclick="showQuiz()">Retake quiz</button>
+      <button class="secondary" onclick="showCareers()">Browse all careers</button>
+    </div>
+  </div>
+</section>
+
+<section id="careers" class="hidden">
+  <div class="section-title"><h2>Career Guide</h2><p>Explore jobs and learn what they involve and how to get started.</p></div>
+  <input class="search" id="search" placeholder="🔍 Search for a career..." oninput="renderCareers()">
+  <div class="career-list" id="careerList"></div>
+</section>
+
+<section id="guide" class="hidden">
+  <div class="card guide">
+    <button class="secondary" onclick="showCareers()">← Back to careers</button>
+    <div class="guide-head" style="margin-top:25px"><div class="bigemoji" id="gEmoji"></div><div><h1 id="gTitle"></h1><div class="chips" id="gTags"></div></div></div>
+    <p id="gDescription" class="result-sub"></p>
+    <h2>What do they do?</h2><p id="gDo"></p>
+    <h2>Skills to develop</h2><div class="chips" id="gSkills"></div>
+    <h2>How to get started</h2><div class="steps" id="gSteps"></div>
+    <h2>Education & training</h2><p id="gEducation"></p>
+  </div>
+</section>
+</main>
+
+<script>
+const careers = {
+  "Biology Tutor": {emoji:"🧬", desc:"Helps students understand biology through clear explanations, examples, and practice.", subjects:["Biology","Science"], traits:["helping","explaining","science"], skills:["Biology","Communication","Patience","Teaching"], do:"A biology tutor explains topics, answers questions, creates practice activities, and adapts lessons to a learner's level.", steps:["Build strong knowledge of biology and the topics you want to teach.","Practice explaining difficult ideas in simple language.","Tutor classmates, younger learners, or students through a tutoring platform.","Create a small collection of notes, activities, or sample lessons.","Keep developing your subject knowledge and teaching skills."], education:"Formal requirements vary by tutoring role. Strong subject knowledge and good communication are important; some organizations may ask for specific qualifications."},
+  "Biochemist": {emoji:"🧪", desc:"Studies the chemistry behind living organisms, cells, proteins, and biological processes.", subjects:["Biology","Chemistry","Maths"], traits:["science","problem-solving","research"], skills:["Biology","Chemistry","Research","Data analysis"], do:"Biochemists investigate chemical processes in living things and may work in laboratories, research, healthcare, agriculture, or biotechnology.", steps:["Build a strong foundation in biology, chemistry, and mathematics.","Learn how scientific experiments and data analysis work.","Continue into relevant higher education or professional training.","Gain laboratory and research experience.","Explore a specialization and build experience in that area."], education:"Biochemistry normally involves higher education in biochemistry or a closely related science. Advanced research roles often require postgraduate study."},
+  "Graphic Designer": {emoji:"🎨", desc:"Creates visual designs for brands, social media, websites, publications, and more.", subjects:["Art","ICT","English"], traits:["creative","design","technology"], skills:["Design","Typography","Visual communication","Design software"], do:"Graphic designers turn ideas and information into visual layouts, illustrations, branding, and digital content.", steps:["Learn design principles such as layout, color, typography, and composition.","Practice using accessible design tools.","Create personal projects and build a portfolio.","Take small projects to gain real experience.","Apply for internships, freelance work, or junior design roles."], education:"A design qualification can be useful, but portfolios and practical skills are also important in many design roles."},
+  "Software Developer": {emoji:"💻", desc:"Builds websites, apps, programs, and digital tools using code.", subjects:["Maths","ICT","Science"], traits:["technology","problem-solving","building"], skills:["Programming","Logic","Problem solving","Testing"], do:"Software developers plan, write, test, improve, and maintain software and digital products.", steps:["Start with one beginner-friendly programming language.","Build small projects such as a calculator, quiz, or simple website.","Learn how debugging and version control work.","Build a portfolio showing projects you have made.","Look for internships, junior roles, freelance work, or further study."], education:"Routes vary. Computer science, software engineering, and related qualifications can help, while strong practical programming skills and projects can also be valuable."},
+  "Teacher": {emoji:"📚", desc:"Helps learners build knowledge and skills through lessons, activities, feedback, and support.", subjects:["English","Maths","Science","History"], traits:["helping","explaining","leading"], skills:["Communication","Planning","Patience","Subject knowledge"], do:"Teachers plan lessons, explain concepts, assess learning, support students, and work with families and other educators.", steps:["Choose subjects or age groups you are interested in teaching.","Build strong subject knowledge and communication skills.","Learn about teaching methods and classroom management.","Complete the required teacher training for your location.","Gain classroom experience and work toward certification where required."], education:"Requirements depend on the country and type of teaching. Many school teaching roles require teacher training and recognized qualifications."},
+  "Laboratory Technician": {emoji:"🔬", desc:"Supports scientific work by preparing samples, using equipment, recording results, and following safety procedures.", subjects:["Biology","Chemistry","Science"], traits:["science","detail","practical"], skills:["Lab technique","Accuracy","Data recording","Safety"], do:"Laboratory technicians prepare materials, operate equipment, collect or process samples, record results, and help scientists or healthcare teams.", steps:["Strengthen biology, chemistry, and mathematics knowledge.","Learn about laboratory safety and accurate measurement.","Study a relevant laboratory or science program.","Gain supervised practical laboratory experience.","Apply for technician or laboratory assistant roles."], education:"Requirements vary by workplace. Many technician roles ask for relevant technical training or a science qualification."},
+  "Video Editor": {emoji:"🎬", desc:"Turns raw video clips, audio, graphics, and effects into finished videos.", subjects:["Art","ICT","English"], traits:["creative","technology","storytelling"], skills:["Editing","Storytelling","Audio","Visual design"], do:"Video editors organize footage, cut scenes, adjust audio, add text and graphics, and shape the final story.", steps:["Learn the basics of a video editing program.","Practice by editing short projects.","Study pacing, transitions, audio, and storytelling.","Build a portfolio of different types of edits.","Take small projects or apply for beginner creative roles."], education:"A formal qualification can help but is not always required. A strong portfolio and practical editing ability can demonstrate your skills."},
+  "Accountant": {emoji:"📊", desc:"Works with financial records, budgets, reports, and financial information.", subjects:["Maths","Business","ICT"], traits:["numbers","detail","organization"], skills:["Numeracy","Accounting","Organization","Analysis"], do:"Accountants record and analyze financial information, prepare reports, help with budgets, and support financial decision-making.", steps:["Build strong mathematics and business foundations.","Learn basic accounting concepts and spreadsheets.","Study accounting or a related qualification.","Gain supervised work experience.","Work toward relevant professional qualifications where appropriate."], education:"Accounting roles often have specific education or professional qualification requirements, depending on the position and country."},
+  "Marketing Specialist": {emoji:"📣", desc:"Helps organizations reach audiences through research, content, branding, and campaigns.", subjects:["English","Business","Art"], traits:["creative","communication","business"], skills:["Communication","Research","Content","Strategy"], do:"Marketing specialists research audiences, plan campaigns, create or coordinate content, and track how campaigns perform.", steps:["Learn the basics of branding, audiences, and digital marketing.","Practice creating sample campaigns and content.","Learn basic analytics and research methods.","Build a portfolio of marketing projects.","Look for internships, volunteer projects, freelance work, or junior roles."], education:"Marketing can be entered through business, marketing, communications, or related study, alongside practical experience."},
+  "Research Assistant": {emoji:"🔎", desc:"Supports research projects by collecting information, organizing data, and helping with experiments or analysis.", subjects:["Science","Maths","English"], traits:["research","science","detail"], skills:["Research","Data handling","Writing","Critical thinking"], do:"Research assistants support investigators with literature searches, data collection, experiments, documentation, and analysis.", steps:["Develop strong research and writing skills.","Learn how to find and evaluate reliable information.","Practice organizing and analyzing simple datasets.","Gain experience through school, university, volunteer, or supervised research projects.","Apply for assistant or trainee research roles."], education:"Requirements depend on the research area. Relevant subject study and practical research experience are commonly useful."}
+};
+
+const questions = [
+ {text:"What is your favorite hobby?", opts:[["Creating or drawing","creative"],["Gaming or technology","technology"],["Reading or writing","communication"],["Helping people","helping"],["Science or experiments","science"],["Organizing or planning","organization"],["Business or selling things","business"],["Making videos or music","media"]]},
+ {text:"Which subjects are you best at?", opts:[["Biology / Science","science"],["Chemistry","chemistry"],["Maths","maths"],["English / Languages","communication"],["Art / Design","creative"],["ICT / Computing","technology"],["Business","business"],["A mix of subjects","problem-solving"]]},
+ {text:"What do you enjoy doing most?", opts:[["Solving difficult problems","problem-solving"],["Explaining things to people","explaining"],["Making things look good","creative"],["Finding out how things work","research"],["Working with numbers","numbers"],["Using technology","technology"],["Helping or supporting others","helping"],["Organizing tasks","organization"]]},
+ {text:"How do you prefer to work?", opts:[["Mostly independently","independent"],["With a team","team"],["A mix of both","flexible"],["Helping people directly","helping"]]},
+ {text:"Which work environment sounds best?", opts:[["Laboratory / science setting","science"],["Office / business setting","business"],["Home / flexible setting","flexible"],["Classroom / education setting","teaching"],["Studio / creative setting","creative"],["Technology / computer setting","technology"]]},
+ {text:"Which skill sounds most like you?", opts:[["I'm good at explaining","explaining"],["I'm creative","creative"],["I'm good with numbers","numbers"],["I'm good at solving problems","problem-solving"],["I'm good at communicating","communication"],["I'm detail-oriented","detail"],["I'm curious and like researching","research"],["I'm organized","organization"]]},
+ {text:"What kind of result would make you happiest?", opts:[["I helped someone learn","teaching"],["I created something","creative"],["I discovered something","research"],["I built something useful","technology"],["I solved a problem","problem-solving"],["I helped a business grow","business"],["I worked with science","science"],["I worked with people","helping"]]},
+ {text:"Which statement sounds most like you?", opts:[["I like learning how the world works.","science"],["I like turning ideas into visuals.","creative"],["I like understanding people and communicating.","communication"],["I like systems, numbers, and accuracy.","numbers"],["I like computers and digital tools.","technology"],["I like helping others improve.","helping"],["I like investigating questions.","research"],["I like planning and organizing.","organization"]]}
+];
+
+let qIndex=0, answers=[];
+function hideAll(){["home","quiz","result","careers","guide"].forEach(id=>document.getElementById(id).classList.add("hidden"))}
+function showHome(){hideAll();document.getElementById("home").classList.remove("hidden");window.scrollTo(0,0)}
+function showQuiz(){hideAll();document.getElementById("quiz").classList.remove("hidden");qIndex=0;answers=[];renderQuestion();window.scrollTo(0,0)}
+function renderQuestion(){let q=questions[qIndex];document.getElementById("qnum").textContent=`QUESTION ${qIndex+1} OF ${questions.length}`;document.getElementById("qtext").textContent=q.text;document.getElementById("bar").style.width=((qIndex+1)/questions.length*100)+"%";document.getElementById("options").innerHTML=q.opts.map((o,i)=>`<button class="option ${answers[qIndex]===i?"selected":""}" onclick="selectOption(${i})">${o[0]}</button>`).join("");document.getElementById("backBtn").style.visibility=qIndex?"visible":"hidden";document.getElementById("nextBtn").textContent=qIndex===questions.length-1?"See my result →":"Next →"}
+function selectOption(i){answers[qIndex]=i;renderQuestion()}
+function nextQuestion(){if(answers[qIndex]===undefined){alert("Please choose an answer first.");return}if(qIndex<questions.length-1){qIndex++;renderQuestion()}else{showResult()}}
+function prevQuestion(){if(qIndex>0){qIndex--;renderQuestion()}}
+function scoreCareer(c){let s=0;answers.forEach((a,qi)=>{let tag=questions[qi].opts[a]?.[1];if(c.traits.includes(tag))s+=2;if(c.subjects.map(x=>x.toLowerCase()).includes(tag))s+=2;if(c.skills.map(x=>x.toLowerCase()).includes(tag))s+=1});return s}
+function getResults(){return Object.entries(careers).map(([name,c])=>({name,c,score:scoreCareer(c)})).sort((a,b)=>b.score-a.score)}
+function showResult(){hideAll();document.getElementById("result").classList.remove("hidden");let results=getResults(),top=results[0], max=Math.max(10,questions.length*3);let pct=Math.min(98,Math.max(62,Math.round(68+(top.score/max)*30)));document.getElementById("resultEmoji").textContent=top.c.emoji;document.getElementById("resultTitle").textContent=top.name;document.getElementById("matchPercent").textContent=`${pct}% match`;document.getElementById("resultIntro").textContent=top.c.desc;document.getElementById("whyList").innerHTML=top.c.skills.slice(0,4).map(x=>`<li>${x}</li>`).join("");document.getElementById("otherJobs").innerHTML=results.slice(1,4).map(x=>`<button class="option" style="margin-bottom:9px" onclick="openGuide('${x.name}')">${x.c.emoji} ${x.name}</button>`).join("");document.getElementById("learnBtn").onclick=()=>openGuide(top.name);window.scrollTo(0,0)}
+function showCareers(){hideAll();document.getElementById("careers").classList.remove("hidden");renderCareers();window.scrollTo(0,0)}
+function renderCareers(){let term=(document.getElementById("search")?.value||"").toLowerCase();let entries=Object.entries(careers).filter(([n,c])=>(n+" "+c.desc+" "+c.subjects.join(" ")).toLowerCase().includes(term));document.getElementById("careerList").innerHTML=entries.map(([n,c])=>`<div class="career-card" onclick="openGuide('${n}')"><div style="font-size:32px">${c.emoji}</div><h3>${n}</h3><p>${c.desc}</p></div>`).join("")||"<p>No careers found. Try another search.</p>"}
+function openGuide(name){let c=careers[name];if(!c)return;hideAll();document.getElementById("guide").classList.remove("hidden");document.getElementById("gEmoji").textContent=c.emoji;document.getElementById("gTitle").textContent=name;document.getElementById("gTags").innerHTML=c.subjects.map(x=>`<span class="chip">${x}</span>`).join("");document.getElementById("gDescription").textContent=c.desc;document.getElementById("gDo").textContent=c.do;document.getElementById("gSkills").innerHTML=c.skills.map(x=>`<span class="chip">${x}</span>`).join("");document.getElementById("gSteps").innerHTML=c.steps.map(x=>`<div class="step">${x}</div>`).join("");document.getElementById("gEducation").textContent=c.education;window.scrollTo(0,0)}
+</script>
+</body>
+</html>
